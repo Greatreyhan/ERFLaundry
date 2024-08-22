@@ -4,8 +4,17 @@ import { db } from "./firebaseconf";
 import { ref, onValue } from "firebase/database";
 import Navigation from "./components/navigation";
 
+interface ListItem {
+  key: string;
+  value: {
+    rfid: string;
+    alias: string;
+    type: string;
+  };
+}
+
 export default function Home() {
-  const [listData, setListData] = useState([])
+  const [listData, setListData] = useState<ListItem[]>([])
   useEffect(() => {
     const query = ref(db, "list");
     return onValue(query, (snapshot) => {
